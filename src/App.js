@@ -1,4 +1,6 @@
 import './App.css';
+import pinkfloydImg from './pinkfloyd.jpg';
+
 
 function Header(pros) {
   return (
@@ -10,9 +12,26 @@ function Header(pros) {
 
 function Main(props) {
   return (
-    <section>
+    // <section>
+    <>
       <p>We serve the most {props.adjective} food</p>
-    </section>
+      <img
+        src={pinkfloydImg}
+        height={200}
+        alt="Pink Floyd image"
+      />
+      <img
+        src="https://github.com/rafalima.png"
+        height={200}
+        alt="Rafael Lima picture"
+      />
+      <ul style={{ textAlign: "left" }}>
+        {props.dishes.map(dish => (
+          <li key={dish.id}>{dish.title}</li>
+        ))}
+      </ul>
+    {/* </section> */}
+    </>
   );
 }
 
@@ -25,12 +44,19 @@ function Footer(props) {
 
 }
 
+const dishes = [
+  "Macaroni and Cheese",
+  "Salmon",
+  "Steak"
+];
+
+const dishesObject = dishes.map((dish, index) => ({ id: index, title: dish }));
 
 function App() {
   return (
     <div className="App">
       <Header name="Punisher" />
-      <Main adjective="different" />
+      <Main adjective="different" dishes={dishesObject} />
       <Footer year={new Date().getFullYear()} />
     </div>
   );
