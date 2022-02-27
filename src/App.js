@@ -1,19 +1,33 @@
+import { useState, useEffect } from "react"
 import './App.css';
-import pinkfloydImg from './pinkfloyd.jpg';
 
-function SecretComponent() {
-  return <h1>Only authorized personel can see this</h1>;
-}
+function App( ) {
+  const [emotion, setEmotion] = useState("happy");
+  const [secondary, setSecondary] = useState("tired");
 
-function RegularComponent() {
-  return <h1>Everyone can see this component</h1>;
-}
+  useEffect(() => {
+    console.log(`It's ${emotion} around here!`)
+  }, [emotion]);
 
+  useEffect(() => {
+    console.log(`It's ${secondary} around here!`)
+  }, [secondary]);
 
-function App( {authorized} ) {
   return (
     <>
-      {authorized ? <SecretComponent /> : <RegularComponent />}
+      <h1>Current emotion is {emotion} and {secondary}</h1>
+      <button onClick={() => setEmotion("happy")}>
+        Make Happy
+      </button>
+      <button onClick={() => setSecondary("crabby")}>
+        Makey Crabby
+      </button>
+      <button onClick={() => setEmotion("frustrated")}>
+        Frustrated
+      </button>
+      <button onClick={() => setEmotion("enthusiastic")}>
+        Enthuse
+      </button>
     </>
   );
 }

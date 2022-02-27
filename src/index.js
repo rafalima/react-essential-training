@@ -4,17 +4,10 @@ import './index.css';
 import App from './App'
 import reportWebVitals from './reportWebVitals';
 
-const array = ["boots", "tent", "headlamp"];
-const [,,light] = array;
-const [first, second] = array;
-
-console.log(first, second);
-console.log(light);
-
 ReactDOM.render(
   <>
     <React.StrictMode>
-      <App authorized={false} />
+      <App />
     </React.StrictMode>
   </>,
   document.getElementById('root')
