@@ -4,16 +4,18 @@ import './index.css';
 import App from './App'
 import reportWebVitals from './reportWebVitals';
 
-function AppTwo() {
-  return <h1>This is the Second App</h1>;
-}
+const array = ["boots", "tent", "headlamp"];
+const [,,light] = array;
+const [first, second] = array;
+
+console.log(first, second);
+console.log(light);
 
 ReactDOM.render(
-  // <React.Fragment>
   <>
-    <App />
-    <AppTwo />
-  {/* </React.Fragment>, */}
+    <React.StrictMode>
+      <App authorized={false} />
+    </React.StrictMode>
   </>,
   document.getElementById('root')
 );
