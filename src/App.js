@@ -1,33 +1,38 @@
-import { useState, useEffect } from "react"
+import { useState, useReducer } from "react"
 import './App.css';
 
 function App( ) {
-  const [emotion, setEmotion] = useState("happy");
-  const [secondary, setSecondary] = useState("tired");
+  const [checked, setChecked] = useState(false);
+  function oldSchoolToggle() {
+    setChecked((checked) => !checked);
+  }
 
-  useEffect(() => {
-    console.log(`It's ${emotion} around here!`)
-  }, [emotion]);
-
-  useEffect(() => {
-    console.log(`It's ${secondary} around here!`)
-  }, [secondary]);
+  const [reducerChecked, toggleReducer] = useReducer(
+    (checked) => !checked,
+    false
+  );
 
   return (
     <>
-      <h1>Current emotion is {emotion} and {secondary}</h1>
-      <button onClick={() => setEmotion("happy")}>
-        Make Happy
-      </button>
-      <button onClick={() => setSecondary("crabby")}>
-        Makey Crabby
-      </button>
-      <button onClick={() => setEmotion("frustrated")}>
-        Frustrated
-      </button>
-      <button onClick={() => setEmotion("enthusiastic")}>
-        Enthuse
-      </button>
+      <label>Old school hook state</label>
+      <input
+        type="checkbox"
+        value={checked}
+        onChange={oldSchoolToggle}
+        // onChange={() => setChecked((checked) => !checked)}
+      />
+      <p>{checked ? "checked": "not checked"}</p>
+      <label>---||---</label>
+      <br />
+      <label>UserReducer hook</label>
+      <input
+        type="checkbox"
+        value={reducerChecked}
+        onChange={toggleReducer}
+      />
+
+      <p>{reducerChecked ? "checked": "not checked"}</p>
+
     </>
   );
 }
