@@ -1,39 +1,32 @@
 import { useState, useReducer } from "react"
 import './App.css';
 
-function App( ) {
-  const [checked, setChecked] = useState(false);
-  function oldSchoolToggle() {
-    setChecked((checked) => !checked);
-  }
+function App({ login }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [reducerChecked, toggleReducer] = useReducer(
-    (checked) => !checked,
-    false
-  );
+  useEffect(() => {
+    if (!login) return;
+    setLoading(true);
+    fetch(`https://api.github.com/users/${login}`)
+      .then((response) => response.json())
+      .then(setData)
+      .then(() => setLoading(true))
+      .catch(setError);
+  }, [login]); //only calls this useEffect when login changes
+
+  if (loading) return <h1>Loading...</h1>;
+  if (error)
+    return <pre>{JSON.stringify(error, null, 2)}</pre>
+  if (!data) return null;
 
   return (
-    <>
-      <label>Old school hook state</label>
-      <input
-        type="checkbox"
-        value={checked}
-        onChange={oldSchoolToggle}
-        // onChange={() => setChecked((checked) => !checked)}
-      />
-      <p>{checked ? "checked": "not checked"}</p>
-      <label>---||---</label>
-      <br />
-      <label>UserReducer hook</label>
-      <input
-        type="checkbox"
-        value={reducerChecked}
-        onChange={toggleReducer}
-      />
-
-      <p>{reducerChecked ? "checked": "not checked"}</p>
-
-    </>
+    <div>
+      <h1>{data.name}</h1>
+      <p>{data.location}</p>
+      <img alt={data.login} src={data.avatar_url} />
+    </div>
   );
 }
 
