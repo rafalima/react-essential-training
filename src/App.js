@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react"
+import { useState, useEffect } from "react"
 import './App.css';
 
 function App({ login }) {
@@ -12,7 +12,7 @@ function App({ login }) {
     fetch(`https://api.github.com/users/${login}`)
       .then((response) => response.json())
       .then(setData)
-      .then(() => setLoading(true))
+      .then(() => setLoading(false))
       .catch(setError);
   }, [login]); //only calls this useEffect when login changes
 
